@@ -1,0 +1,24 @@
+<resources>
+
+
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- customize the color palette -->
+        <item name="colorPrimary">@color/primary_color</item>
+        <item name="colorPrimaryDark">@color/primary_color_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+    </style>
+
+    <style name="AppTheme.ActionBar" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+        <item name="android:background">@color/primary_color</item>
+    </style>
+
+    <style name="AppTheme.DefaultFragment" parent="Theme.AppCompat.Light">
+
+    </style>
+
+
+
+
+
+
+</resources>
