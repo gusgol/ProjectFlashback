@@ -9,11 +9,13 @@ public class Flashback {
     private String mId;
     private int mIndex;
     private Date mDate;
+    private String mPath;
 
-    public Flashback(String id, int index, Date date) {
+    public Flashback(String id, int index, Date date, String path) {
         this.mId = id;
         this.mIndex = index;
         this.mDate = date;
+        this.mPath = path;
     }
 
     public String getId() {
@@ -38,5 +40,13 @@ public class Flashback {
 
     public void setDate(Date date) {
         this.mDate = date;
+    }
+
+    public String getPath() {
+        return mPath;
+    }
+
+    public void setPath(String mPath) {
+        this.mPath = mPath;
     }
 }

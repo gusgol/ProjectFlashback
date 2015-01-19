@@ -1,5 +1,9 @@
 package com.gustavogoldhardt.flashback.adapter;
 
+import android.graphics.Bitmap;
+import android.media.ThumbnailUtils;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,71 +24,54 @@ import java.util.Date;
  * Created by gustavogoldhardt on 12/22/14.
  */
 public class FlashbackAdapter extends RecyclerView.Adapter<FlashbackAdapter.ViewHolder> {
-    private static final int TYPE_ADD = 0;
-    private static final int TYPE_FLASHBACK = 1;
-
 
     private ArrayList<Flashback> mFlashbacksList;
 
     public FlashbackAdapter() {
         mFlashbacksList = new ArrayList<Flashback>();
 
-        //dummy data
-        for(int i = 0; i < 3; i++) {
-            mFlashbacksList.add(new Flashback(Integer.toString(i), i, new Date()));
-        }
+//        //dummy data
+//        for(int i = 0; i < 3; i++) {
+//            mFlashbacksList.add(new Flashback(Integer.toString(i), i, new Date()));
+//        }
 
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View itemView;
-
-        if(viewType == TYPE_ADD) {
-            itemView = LayoutInflater.
-                    from(viewGroup.getContext()).
-                    inflate(R.layout.add_flashback, viewGroup, false);
-        } else  {
-            itemView = LayoutInflater.
+        itemView = LayoutInflater.
                     from(viewGroup.getContext()).
                     inflate(R.layout.flashback, viewGroup, false);
-        }
 
         return new ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int position) {
-        if(position < mFlashbacksList.size()) {
-            Flashback flashback = mFlashbacksList.get(position);
+        Flashback flashback = mFlashbacksList.get(position);
 
+        // Set date
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
+        viewHolder.vDate.setText(df.format(flashback.getDate()));
 
-            // Set date
-            DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
-            viewHolder.vDate.setText(df.format(flashback.getDate()));
+        //Set index
+        viewHolder.vIndex.setText("" + flashback.getIndex());
 
-            //Set index
-            viewHolder.vIndex.setText("" + flashback.getIndex());
-        }
-        //Set image view
-        //viewHolder.vImageView.setImageResource();
-    }
-
-    @Override
-    public int getItemViewType(int position) {
-        if (isFooter(position))
-            return TYPE_ADD;
-
-        return TYPE_FLASHBACK;
-    }
-
-    private boolean isFooter(int position) {
-        return position == mFlashbacksList.size();
+        //Set pic
+        Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(
+                flashback.getPath(), MediaStore.Video.Thumbnails.MINI_KIND);
+        viewHolder.vImageView.setImageBitmap(bitmap);
     }
 
     @Override
     public int getItemCount() {
-        return mFlashbacksList.size() + 1;
+        return mFlashbacksList.size();
+    }
+
+    public void setFlashbacksList(ArrayList<Flashback> list) {
+        mFlashbacksList = list;
+        notifyDataSetChanged();
     }
 
 
