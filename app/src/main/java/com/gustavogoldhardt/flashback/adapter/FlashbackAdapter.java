@@ -1,9 +1,6 @@
 package com.gustavogoldhardt.flashback.adapter;
 
 import android.graphics.Bitmap;
-import android.media.ThumbnailUtils;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +15,6 @@ import com.gustavogoldhardt.flashback.widget.AddFlashBackView;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by gustavogoldhardt on 12/22/14.
@@ -29,12 +25,6 @@ public class FlashbackAdapter extends RecyclerView.Adapter<FlashbackAdapter.View
 
     public FlashbackAdapter() {
         mFlashbacksList = new ArrayList<Flashback>();
-
-//        //dummy data
-//        for(int i = 0; i < 3; i++) {
-//            mFlashbacksList.add(new Flashback(Integer.toString(i), i, new Date()));
-//        }
-
     }
 
     @Override
@@ -59,9 +49,7 @@ public class FlashbackAdapter extends RecyclerView.Adapter<FlashbackAdapter.View
         viewHolder.vIndex.setText("" + flashback.getIndex());
 
         //Set pic
-        Bitmap bitmap = ThumbnailUtils.createVideoThumbnail(
-                flashback.getPath(), MediaStore.Video.Thumbnails.MINI_KIND);
-        viewHolder.vImageView.setImageBitmap(bitmap);
+        viewHolder.vImageView.setImageBitmap(flashback.getThumbnail());
     }
 
     @Override
@@ -73,7 +61,6 @@ public class FlashbackAdapter extends RecyclerView.Adapter<FlashbackAdapter.View
         mFlashbacksList = list;
         notifyDataSetChanged();
     }
-
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         public ImageView vImageView;

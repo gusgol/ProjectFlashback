@@ -8,4 +8,6 @@
     <dimen name="fab_size_small">40dp</dimen>
     <dimen name="fab_icon_size">24dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <dimen name="fab_margin_bottom_play">88dp</dimen>
+
 </resources>

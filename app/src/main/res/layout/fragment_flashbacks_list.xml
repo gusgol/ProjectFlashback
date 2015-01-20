@@ -32,5 +32,32 @@
 
     </com.gustavogoldhardt.flashback.widget.FloatingActionButton>
 
+    <com.gustavogoldhardt.flashback.widget.FloatingActionButton
+        android:id="@+id/merge_videos"
+        android:layout_width="@dimen/fab_size"
+        android:layout_height="@dimen/fab_size"
+        android:elevation="@dimen/fab_elevation"
+        android:background="@drawable/fab_merge_background"
+        android:stateListAnimator="@animator/fab_anim"
+        android:layout_gravity="end|bottom"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:layout_marginBottom="@dimen/fab_margin_bottom_play"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/fab_icon_size"
+            android:layout_height="@dimen/fab_icon_size"
+            android:src="@drawable/fab_merge_icons"
+            android:layout_gravity="center"
+            android:duplicateParentState="true"/>
+
+    </com.gustavogoldhardt.flashback.widget.FloatingActionButton>
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center" />
+
 
 </FrameLayout>

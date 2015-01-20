@@ -1,5 +1,7 @@
 package com.gustavogoldhardt.flashback.model;
 
+import android.graphics.Bitmap;
+
 import java.util.Date;
 
 /**
@@ -10,12 +12,14 @@ public class Flashback {
     private int mIndex;
     private Date mDate;
     private String mPath;
+    private Bitmap mThumbnail;
 
-    public Flashback(String id, int index, Date date, String path) {
+    public Flashback(String id, int index, Date date, String path, Bitmap thumbnail) {
         this.mId = id;
         this.mIndex = index;
         this.mDate = date;
         this.mPath = path;
+        this.mThumbnail = thumbnail;
     }
 
     public String getId() {
@@ -48,5 +52,13 @@ public class Flashback {
 
     public void setPath(String mPath) {
         this.mPath = mPath;
+    }
+
+    public Bitmap getThumbnail() {
+        return mThumbnail;
+    }
+
+    public void setThumbnail(Bitmap mThumbnail) {
+        this.mThumbnail = mThumbnail;
     }
 }
