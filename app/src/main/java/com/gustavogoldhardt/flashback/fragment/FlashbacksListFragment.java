@@ -2,15 +2,12 @@ package com.gustavogoldhardt.flashback.fragment;
 
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,9 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.coremedia.iso.IsoFile;
 import com.coremedia.iso.boxes.Container;
 import com.googlecode.mp4parser.authoring.Movie;
 import com.googlecode.mp4parser.authoring.Track;
@@ -37,12 +32,7 @@ import com.gustavogoldhardt.flashback.model.Flashback;
 import com.gustavogoldhardt.flashback.widget.FloatingActionButton;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.RandomAccessFile;
-import java.nio.channels.Channels;
-import java.nio.channels.FileChannel;
 import java.nio.channels.WritableByteChannel;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -157,11 +147,13 @@ public class FlashbacksListFragment extends Fragment {
         File file[] = f.listFiles();
         if(file != null) {
             Log.d("Files", "Size: " + file.length);
+            int index = 0;
             for (int i = 0; i < file.length; i++) {
                 File targetFile = file[i];
                 if(targetFile.isFile()) {
+                    index++;
                     Bitmap thumbnail = ThumbnailUtils.createVideoThumbnail(targetFile.getAbsolutePath(), MediaStore.Video.Thumbnails.MINI_KIND);
-                    flashbacks.add(new Flashback("id" + i, i + 1, new Date(targetFile.lastModified()), targetFile.getAbsolutePath(), thumbnail));
+                    flashbacks.add(new Flashback("id" + i, index, new Date(targetFile.lastModified()), targetFile.getAbsolutePath(), thumbnail));
                     Log.d("Files", "FileName:" + file[i].getName());
                 }
             }
@@ -277,6 +269,7 @@ public class FlashbacksListFragment extends Fragment {
         protected void onPostExecute(Void aVoid) {
             super.onPostExecute(aVoid);
             mAdapter.setFlashbacksList(mVideos);
+            if(mAdapter.getItemCount() >= 8) mMerge.setVisibility(View.VISIBLE);
             mProgressBar.setVisibility(View.GONE);
         }
     }
